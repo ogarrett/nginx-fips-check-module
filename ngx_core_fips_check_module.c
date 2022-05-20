@@ -10,6 +10,10 @@
 
 #include <openssl/crypto.h>
 
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L && !defined FIPS_mode)
+# define FIPS_mode() EVP_default_properties_is_fips_enabled(NULL)
+#endif
+
 typedef enum {
     UNKNOWN,
     DISABLED,
